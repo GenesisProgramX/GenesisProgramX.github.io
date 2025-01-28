@@ -1,0 +1,101 @@
+<style>
+  #chat-bubble {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #0057ff;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 9999;
+    transition: transform 0.3s ease;
+  }
+
+  #chat-bubble:hover {
+    transform: scale(1.1);
+  }
+
+  #chat-widget-container {
+    display: none;
+    position: fixed;
+    bottom: calc(20px + 60px + 10px);
+    right: 20px;
+    width: 500px;
+    max-width: 90%;
+    height: calc(100vh - (20px + 60px + 10px + 20px));
+    min-height: 400px;
+    z-index: 9999;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    overflow: hidden;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #chat-widget-container.show {
+    display: flex;
+    opacity: 1;
+  }
+
+  #chat-header {
+    background-color: #000000;
+    color: #fff;
+    padding: 15px;
+    font-weight: bold;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  #chat-content {
+    flex-grow: 1;
+    display: block;
+  }
+
+  #chat-bubble img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+  }
+</style>
+
+<div id="chat-bubble">
+  <img src="https://6be7e0906f1487fecf0b9cbd301defd6.cdn.bubble.io/f1729894095742x981944481074606300/chat-round-svgrepo-com.svg" alt="Chat"/>
+</div>
+
+<div id="chat-widget-container">
+  <div id="chat-header">Genesis Program</div>
+  <div id="chat-content">
+    <iframe
+      id="chat-widget-iframe"
+      data-src="https://youraiagent.com/chat-widget-new/1738067592038x718935390841733100"
+      style="border: none; width: 100%; height: 100%;"
+      title="AI Chat Widget"
+    ></iframe>
+  </div>
+</div>
+
+<script>
+  (function() {
+    var chatBubble = document.getElementById('chat-bubble');
+    var chatWidgetContainer = document.getElementById('chat-widget-container');
+    var chatWidgetIframe = document.getElementById('chat-widget-iframe');
+    var isIframeLoaded = false;
+
+    chatBubble.addEventListener('click', function() {
+      chatWidgetContainer.classList.toggle('show');
+
+      if (!isIframeLoaded) {
+        var src = chatWidgetIframe.getAttribute('data-src');
+        if (src) {
+          chatWidgetIframe.setAttribute('src', src);
+          isIframeLoaded = true;
+        }
+      }
+    });
+  })();
+</script>
